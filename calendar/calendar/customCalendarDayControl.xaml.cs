@@ -24,10 +24,14 @@ namespace calendar
         {
             InitializeComponent();
         }
-        public customCalendarDayControl(int dayNumber = 0)
+        public customCalendarDayControl(int dayNumber = 0, bool isActive = true)
         {
             InitializeComponent();
             DayNumber.Content = dayNumber;
+            if (!isActive)
+            {
+                TileBorder.BorderBrush = Brushes.Lavender;
+            }
         }
     }
 }

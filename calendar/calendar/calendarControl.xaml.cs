@@ -37,15 +37,18 @@ namespace calendar
                 for (int j = 0; j < 7; j++)
                 {
                     int offset = 0;
+                    bool isActive = true;
                     if (dayNumber <= 0)
                     {
                         offset = daysOfPrevMonth;
+                        isActive = false;
                     }
                     if (dayNumber > DateTime.DaysInMonth(actualData.Year, actualData.Month))
                     {
                         offset = -DateTime.DaysInMonth(actualData.Year, actualData.Month);
+                        isActive = false;
                     }
-                    customCalendarDayControl day = new customCalendarDayControl(dayNumber + offset);
+                    customCalendarDayControl day = new customCalendarDayControl(dayNumber + offset, isActive);
                     Grid.SetColumn(day, j);
                     Grid.SetRow(day, i);
                     DaysContainer.Children.Add(day);

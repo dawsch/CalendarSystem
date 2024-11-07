@@ -8,7 +8,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
         <Label x:Name="DayNumber" Content="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Border BorderBrush="Red" BorderThickness="1" CornerRadius="3"/>
+        <Border x:Name="TileBorder" BorderBrush="Red" BorderThickness="1" CornerRadius="3"/>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 2">
             <Ellipse Width="4" Height="4" Fill="Blue" Margin="1"/>
             <Ellipse Width="4" Height="4" Fill="Blue" Margin="1"/>
