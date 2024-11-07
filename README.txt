@@ -1,0 +1,1 @@
+System do zarządzania kalendarzem.
