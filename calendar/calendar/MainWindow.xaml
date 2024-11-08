@@ -8,6 +8,6 @@
         Title="MainWindow" Height="450" Width="800">
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
         <Calendar/>
-         <local:calendarControl VerticalAlignment="Top" Width="400" Height="300"/>
+        <local:calendarControl VerticalAlignment="Top" Width="400" Height="300"/>
     </StackPanel>
 </Window>

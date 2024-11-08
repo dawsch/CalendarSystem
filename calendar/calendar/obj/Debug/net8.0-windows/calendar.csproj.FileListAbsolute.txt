@@ -49,3 +49,4 @@ C:\Users\tafit\Source\Repos\dawsch\CalendarSystem\calendar\calendar\obj\Debug\ne
 C:\Users\tafit\Source\Repos\dawsch\CalendarSystem\calendar\calendar\obj\Debug\net8.0-windows\calendar.pdb
 C:\Users\tafit\Source\Repos\dawsch\CalendarSystem\calendar\calendar\obj\Debug\net8.0-windows\calendar.genruntimeconfig.cache
 C:\Users\tafit\Source\Repos\dawsch\CalendarSystem\calendar\calendar\obj\Debug\net8.0-windows\ref\calendar.dll
+C:\projects\calendar\calendar\calendar\obj\Debug\net8.0-windows\calendar.sourcelink.json
