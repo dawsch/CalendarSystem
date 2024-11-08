@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Text;
@@ -21,19 +22,40 @@ namespace calendar
     /// </summary>
     public partial class calendarControl : UserControl
     {
-        DateTime actualData;
+        DateTime actualDate;
+        List<customCalendarDayControl> dayControlList;
         public calendarControl()
         {
             InitializeComponent();
 
-            actualData = DateTime.Now;
-            int firstDayOfMonty = ((int)new DateTime(actualData.Year, actualData.Month, 1).DayOfWeek) - 1;
+            actualDate = DateTime.Now;
+
+            dayControlList = createMonth(actualDate.Year, actualDate.Month);
+            foreach (var dayControl in dayControlList)
+            {
+                DaysContainer.Children.Add(dayControl);
+            }
+        }
+
+        private void prevClicked(object sender, RoutedEventArgs e)
+        {
+            actualDate = actualDate.AddMonths(-1);
+            updateMonth(actualDate.Year, actualDate.Month, dayControlList);
+        }
+        private void nextClicked(object sender, RoutedEventArgs e)
+        {
+            actualDate = actualDate.AddMonths(1);
+            updateMonth(actualDate.Year, actualDate.Month, dayControlList);
+        }
+        void updateMonth(int year, int month, List<customCalendarDayControl> tils)
+        {
+            int firstDayOfMonty = ((int)new DateTime(year, month, 1).DayOfWeek) - 1;
             int dayNumber = -firstDayOfMonty + 1;
-            int daysOfPrevMonth = DateTime.DaysInMonth(actualData.Year, actualData.Month - 1);
+            int daysOfPrevMonth = DateTime.DaysInMonth(year, month - 1);
 
             for (int i = 0; i < 6; i++)
             {
-                
+
                 for (int j = 0; j < 7; j++)
                 {
                     int offset = 0;
@@ -43,24 +65,60 @@ namespace calendar
                         offset = daysOfPrevMonth;
                         tailStatus = TilStatus.disable;
                     }
-                    if (dayNumber > DateTime.DaysInMonth(actualData.Year, actualData.Month))
+                    if (dayNumber > DateTime.DaysInMonth(year, month))
                     {
-                        offset = -DateTime.DaysInMonth(actualData.Year, actualData.Month);
+                        offset = -DateTime.DaysInMonth(year, month);
                         tailStatus = TilStatus.disable;
                     }
-                    if (dayNumber == actualData.Day)
+                    if (dayNumber == DateTime.Now.Day)
+                    {
+                        tailStatus = TilStatus.today;
+                    }
+                    tils[i * 6 + j].update(dayNumber + offset, tailStatus);
+
+                    dayNumber++;
+                }
+            }
+        }
+        List<customCalendarDayControl> createMonth(int year, int month)
+        {
+            List<customCalendarDayControl> tils = new List<customCalendarDayControl>();
+
+            int firstDayOfMonty = ((int)new DateTime(year, month, 1).DayOfWeek) - 1;
+            int dayNumber = -firstDayOfMonty + 1;
+            int daysOfPrevMonth = DateTime.DaysInMonth(year, month - 1);
+
+            for (int i = 0; i < 6; i++)
+            {
+
+                for (int j = 0; j < 7; j++)
+                {
+                    int offset = 0;
+                    TilStatus tailStatus = TilStatus.normal;
+                    if (dayNumber <= 0)
+                    {
+                        offset = daysOfPrevMonth;
+                        tailStatus = TilStatus.disable;
+                    }
+                    if (dayNumber > DateTime.DaysInMonth(year, month))
+                    {
+                        offset = -DateTime.DaysInMonth(year, month);
+                        tailStatus = TilStatus.disable;
+                    }
+                    if (dayNumber == DateTime.Now.Day)
                     {
                         tailStatus = TilStatus.today;
                     }
                     customCalendarDayControl day = new customCalendarDayControl(dayNumber + offset, tailStatus);
                     Grid.SetColumn(day, j);
                     Grid.SetRow(day, i);
-                    DaysContainer.Children.Add(day);
+                    tils.Add(day);
 
 
                     dayNumber++;
                 }
             }
+            return tils;
         }
     }
 }

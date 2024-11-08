@@ -25,18 +25,20 @@ namespace calendar
     public partial class customCalendarDayControl : UserControl
     {
         TilStatus status;
-        public int DayNumber { get { return (int)dayNumber; } set { if (value > 0 && value <= 31) dayNumber = value; } }
+        public int DayNumber { get { return dayNumber; } set { if (value > 0 && value <= 31) dayNumber = value; } }
         int dayNumber;
         public customCalendarDayControl()
         {
             InitializeComponent();
+            this.DataContext = this;
         }
         public customCalendarDayControl(int _dayNumber = 0, TilStatus _status = TilStatus.normal)
         {
             status = _status;
-            dayNumber = _dayNumber;
+            DayNumber = _dayNumber;
             InitializeComponent();
-            DayNumberLabel.Content = dayNumber;
+            this.DataContext = this;
+            //DayNumberLabel.Content = dayNumber;
 
             TileBorder.BorderBrush = getBorderColor();
             TileBorder.Background = getBackColor();
@@ -71,7 +73,7 @@ namespace calendar
         public void update(int _dayNumber, TilStatus _status)
         {
             status = _status;
-            dayNumber = _dayNumber;
+            DayNumber = _dayNumber;
 
             TileBorder.Background = getBackColor();
             TileBorder.BorderBrush = getBorderColor();

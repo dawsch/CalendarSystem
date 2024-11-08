@@ -13,9 +13,9 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="prev"/>
+            <Button Content="prev" Click="prevClicked"/>
             <Label Content="listopad"/>
-            <Button Content="next"/>
+            <Button Content="next" Click="nextClicked"/>
         </StackPanel>
         <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
