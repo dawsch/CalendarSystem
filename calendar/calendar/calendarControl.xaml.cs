@@ -37,18 +37,22 @@ namespace calendar
                 for (int j = 0; j < 7; j++)
                 {
                     int offset = 0;
-                    bool isActive = true;
+                    TilStatus tailStatus = TilStatus.normal;
                     if (dayNumber <= 0)
                     {
                         offset = daysOfPrevMonth;
-                        isActive = false;
+                        tailStatus = TilStatus.disable;
                     }
                     if (dayNumber > DateTime.DaysInMonth(actualData.Year, actualData.Month))
                     {
                         offset = -DateTime.DaysInMonth(actualData.Year, actualData.Month);
-                        isActive = false;
+                        tailStatus = TilStatus.disable;
                     }
-                    customCalendarDayControl day = new customCalendarDayControl(dayNumber + offset, isActive);
+                    if (dayNumber == actualData.Day)
+                    {
+                        tailStatus = TilStatus.today;
+                    }
+                    customCalendarDayControl day = new customCalendarDayControl(dayNumber + offset, tailStatus);
                     Grid.SetColumn(day, j);
                     Grid.SetRow(day, i);
                     DaysContainer.Children.Add(day);

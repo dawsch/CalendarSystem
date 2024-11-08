@@ -15,23 +15,66 @@ using System.Windows.Shapes;
 
 namespace calendar
 {
-    /// <summary>
-    /// Logika interakcji dla klasy customCalendarDayControl.xaml
-    /// </summary>
+    public enum TilStatus
+    {
+        normal,
+        disable,
+        active,
+        today
+    }
     public partial class customCalendarDayControl : UserControl
     {
+        TilStatus status;
+        public int DayNumber { get { return (int)dayNumber; } set { if (value > 0 && value <= 31) dayNumber = value; } }
+        int dayNumber;
         public customCalendarDayControl()
         {
             InitializeComponent();
         }
-        public customCalendarDayControl(int dayNumber = 0, bool isActive = true)
+        public customCalendarDayControl(int _dayNumber = 0, TilStatus _status = TilStatus.normal)
         {
+            status = _status;
+            dayNumber = _dayNumber;
             InitializeComponent();
-            DayNumber.Content = dayNumber;
-            if (!isActive)
+            DayNumberLabel.Content = dayNumber;
+
+            TileBorder.BorderBrush = getBorderColor();
+            TileBorder.Background = getBackColor();
+        }
+
+        private void TileBorder_MouseEnter(object sender, MouseEventArgs e)
+        {
+            TileBorder.Background = new SolidColorBrush(Colors.LightGray);
+        }
+
+        private void TileBorder_MouseLeave(object sender, MouseEventArgs e)
+        {
+            TileBorder.Background = getBackColor();
+        }
+        private Brush getBackColor()
+        {
+
+            if (status == TilStatus.today)
             {
-                TileBorder.BorderBrush = Brushes.Lavender;
+                return Brushes.Beige;
             }
+            return Brushes.White;
+        }
+        private Brush getBorderColor()
+        {
+            if (status == TilStatus.disable)
+            {
+                return Brushes.Lavender;
+            }
+            return Brushes.Red;
+        }
+        public void update(int _dayNumber, TilStatus _status)
+        {
+            status = _status;
+            dayNumber = _dayNumber;
+
+            TileBorder.Background = getBackColor();
+            TileBorder.BorderBrush = getBorderColor();
         }
     }
 }
