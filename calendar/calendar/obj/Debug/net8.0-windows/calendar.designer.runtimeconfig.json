@@ -13,9 +13,7 @@
     ],
     "additionalProbingPaths": [
       "C:\\Users\\tafit\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\tafit\\.nuget\\packages",
-      "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-      "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet"
+      "C:\\Users\\tafit\\.nuget\\packages"
     ],
     "configProperties": {
       "System.Runtime.Serialization.EnableUnsafeBinaryFormatterSerialization": true,

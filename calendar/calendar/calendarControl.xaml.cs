@@ -17,9 +17,6 @@ using System.Windows.Shapes;
 
 namespace calendar
 {
-    /// <summary>
-    /// Logika interakcji dla klasy calendarControl.xaml
-    /// </summary>
     public partial class calendarControl : UserControl
     {
         DateTime actualDate;
@@ -49,10 +46,15 @@ namespace calendar
         }
         void updateMonth(int year, int month, List<customCalendarDayControl> tils)
         {
-            int firstDayOfMonty = ((int)new DateTime(year, month, 1).DayOfWeek) - 1;
-            int dayNumber = -firstDayOfMonty + 1;
-            int daysOfPrevMonth = DateTime.DaysInMonth(year, month - 1);
-
+            Debug.WriteLine((int)new DateTime(year, month, 1).DayOfWeek);
+            int firstDayOfMontj = getDayOfWeek(new DateTime(year, month, 1));
+            int dayNumber = -firstDayOfMontj + 1;
+            int daysOfPrevMonth;
+            if (month > 1)
+                daysOfPrevMonth = DateTime.DaysInMonth(year, month - 1);
+            else
+                daysOfPrevMonth = DateTime.DaysInMonth(year - 1, 12);
+            int index = 0;
             for (int i = 0; i < 6; i++)
             {
 
@@ -70,13 +72,14 @@ namespace calendar
                         offset = -DateTime.DaysInMonth(year, month);
                         tailStatus = TilStatus.disable;
                     }
-                    if (dayNumber == DateTime.Now.Day)
+                    if (dayNumber == DateTime.Today.Day && year == DateTime.Today.Year && month == DateTime.Today.Month)
                     {
                         tailStatus = TilStatus.today;
                     }
-                    tils[i * 6 + j].update(dayNumber + offset, tailStatus);
+                    tils[index].update(dayNumber + offset, tailStatus);
 
                     dayNumber++;
+                    index++;
                 }
             }
         }
@@ -84,13 +87,16 @@ namespace calendar
         {
             List<customCalendarDayControl> tils = new List<customCalendarDayControl>();
 
-            int firstDayOfMonty = ((int)new DateTime(year, month, 1).DayOfWeek) - 1;
+            int firstDayOfMonty = getDayOfWeek(new DateTime(year, month, 1));
             int dayNumber = -firstDayOfMonty + 1;
-            int daysOfPrevMonth = DateTime.DaysInMonth(year, month - 1);
+            int daysOfPrevMonth;
+            if (month > 1)
+                daysOfPrevMonth = DateTime.DaysInMonth(year, month - 1);
+            else
+                daysOfPrevMonth = DateTime.DaysInMonth(year - 1, 12);
 
             for (int i = 0; i < 6; i++)
             {
-
                 for (int j = 0; j < 7; j++)
                 {
                     int offset = 0;
@@ -105,7 +111,7 @@ namespace calendar
                         offset = -DateTime.DaysInMonth(year, month);
                         tailStatus = TilStatus.disable;
                     }
-                    if (dayNumber == DateTime.Now.Day)
+                    if (dayNumber == DateTime.Today.Day && year == DateTime.Today.Year && month == DateTime.Today.Month)
                     {
                         tailStatus = TilStatus.today;
                     }
@@ -119,6 +125,14 @@ namespace calendar
                 }
             }
             return tils;
+        }
+        static int getDayOfWeek(DateTime date)
+        {
+            int result = (int)date.DayOfWeek;
+            if (result == 0)
+                return 6;
+
+            return result - 1;
         }
     }
 }

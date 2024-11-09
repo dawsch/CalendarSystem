@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,15 +23,16 @@ namespace calendar
         active,
         today
     }
-    public partial class customCalendarDayControl : UserControl
+    public partial class customCalendarDayControl : UserControl, INotifyPropertyChanged
     {
         TilStatus status;
-        public int DayNumber { get { return dayNumber; } set { if (value > 0 && value <= 31) dayNumber = value; } }
+        public int DayNumber { get { return dayNumber; } set { if (value > 0 && value <= 31) { dayNumber = value; OnPropertyChanged(nameof(DayNumber)); } } }
         int dayNumber;
         public customCalendarDayControl()
         {
             InitializeComponent();
             this.DataContext = this;
+            
         }
         public customCalendarDayControl(int _dayNumber = 0, TilStatus _status = TilStatus.normal)
         {
@@ -77,6 +79,13 @@ namespace calendar
 
             TileBorder.Background = getBackColor();
             TileBorder.BorderBrush = getBorderColor();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

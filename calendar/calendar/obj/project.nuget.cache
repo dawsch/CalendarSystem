@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "XcCb8/cGzMud8a1nHCSS207jzKPy4RAHfSsElMn9e/x/AnfTNldZZAi8nqCbbimIYY+bHbqnqhP2vknggnHHeA==",
+  "dgSpecHash": "qossVRTF+U0=",
   "success": true,
-  "projectFilePath": "C:\\Users\\tafit\\Source\\Repos\\dawsch\\CalendarSystem\\calendar\\calendar\\calendar.csproj",
+  "projectFilePath": "C:\\projects\\calendar\\calendar\\calendar\\calendar.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
