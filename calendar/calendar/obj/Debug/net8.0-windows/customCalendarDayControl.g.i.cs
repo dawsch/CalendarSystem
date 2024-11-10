@@ -69,7 +69,7 @@ namespace calendar {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/calendar;V1.0.0.0;component/customcalendardaycontrol.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/calendar;component/customcalendardaycontrol.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\customCalendarDayControl.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

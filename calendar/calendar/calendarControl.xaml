@@ -6,16 +6,25 @@
              xmlns:local="clr-namespace:calendar"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="monthControlButton" TargetType="Button">
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="Width" Value="50"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        <Label VerticalAlignment="Stretch" VerticalContentAlignment="Center" Content="{Binding YearLabel, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0"/>
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="prev" Click="prevClicked"/>
-            <Label Content="listopad"/>
-            <Button Content="next" Click="nextClicked"/>
+            <Button Style="{StaticResource monthControlButton}" Content="prev" Click="prevClicked"/>
+            <Label HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="100" Content="{Binding MonthName, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Style="{StaticResource monthControlButton}" Content="next" Click="nextClicked"/>
         </StackPanel>
         <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>

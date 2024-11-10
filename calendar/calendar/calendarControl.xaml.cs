@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.ExceptionServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,15 +19,53 @@ using System.Windows.Shapes;
 
 namespace calendar
 {
+    internal class calendarInfo : INotifyPropertyChanged
+    {
+        static string[] names = { "styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień" };
+        private string monthName = "brak";
+        private int yearLabel = 0;
+
+        public string MonthName { get { return monthName; } set { if (names.Contains(value)) monthName = value; OnPropertyChanged(nameof(MonthName)); } }
+        public int YearLabel { get { return yearLabel; } set { yearLabel = value; OnPropertyChanged(nameof(YearLabel)); } }
+        internal calendarInfo(int month, int year)
+        {
+            MonthName = names[month - 1];
+            YearLabel = year;
+        }
+        internal void setMonth(int month)
+        {
+            MonthName = names[month - 1];
+        }
+        internal void setYear(int year)
+        {
+            YearLabel = year;
+        }
+
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void OnPropertyChanged(string propertyName)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+    }
     public partial class calendarControl : UserControl
     {
         DateTime actualDate;
         List<customCalendarDayControl> dayControlList;
+
+        calendarInfo calInfo;
+        string actualMonth;
+
         public calendarControl()
         {
             InitializeComponent();
-
             actualDate = DateTime.Now;
+
+            calInfo = new calendarInfo(actualDate.Month, actualDate.Year);
+
+            this.DataContext = calInfo;
+
 
             dayControlList = createMonth(actualDate.Year, actualDate.Month);
             foreach (var dayControl in dayControlList)
@@ -37,16 +77,19 @@ namespace calendar
         private void prevClicked(object sender, RoutedEventArgs e)
         {
             actualDate = actualDate.AddMonths(-1);
+            calInfo.setMonth(actualDate.Month);
+            calInfo.setYear(actualDate.Year);
             updateMonth(actualDate.Year, actualDate.Month, dayControlList);
         }
         private void nextClicked(object sender, RoutedEventArgs e)
         {
             actualDate = actualDate.AddMonths(1);
+            calInfo.setMonth(actualDate.Month);
+            calInfo.setYear(actualDate.Year);
             updateMonth(actualDate.Year, actualDate.Month, dayControlList);
         }
         void updateMonth(int year, int month, List<customCalendarDayControl> tils)
         {
-            Debug.WriteLine((int)new DateTime(year, month, 1).DayOfWeek);
             int firstDayOfMontj = getDayOfWeek(new DateTime(year, month, 1));
             int dayNumber = -firstDayOfMontj + 1;
             int daysOfPrevMonth;
@@ -134,5 +177,7 @@ namespace calendar
 
             return result - 1;
         }
+
+        
     }
 }
