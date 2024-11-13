@@ -12,9 +12,9 @@ using System;
 using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("calendar")]
-[assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
+[assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e6c52607a3f6cc0743a80fb7f1825b8cfe46bce8")]
 [assembly: System.Reflection.AssemblyProductAttribute("calendar")]
 [assembly: System.Reflection.AssemblyTitleAttribute("calendar")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
