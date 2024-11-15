@@ -13,15 +13,23 @@
                 BorderThickness="1" 
                 CornerRadius="3"
                 MouseEnter="TileBorder_MouseEnter"
-                MouseLeave="TileBorder_MouseLeave">
+                MouseLeave="TileBorder_MouseLeave"
+                Mouse.MouseDown="TileBorder_MouseDown">
             <Grid>
                 <Label x:Name="DayNumberLabel" Content="{Binding DayNumber, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0 0 0 2">
-                    <Ellipse Width="4" Height="4" Fill="Blue" Margin="1"/>
-                    <Ellipse Width="4" Height="4" Fill="Blue" Margin="1"/>
-                    <Ellipse Width="4" Height="4" Fill="Blue" Margin="1"/>
-                </StackPanel>
-                
+                <ItemsControl x:Name="eventsListControl" ItemsSource="{Binding events}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Ellipse Width="3" Height="3" Fill="{Binding Color, UpdateSourceTrigger=PropertyChanged}" Margin="1"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0 0 0 2"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+
             </Grid>
         </Border>
     </Grid>

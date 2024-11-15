@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,17 @@ namespace calendar
         TilStatus status;
         public int DayNumber { get { return dayNumber; } set { if (value > 0 && value <= 31) { dayNumber = value; OnPropertyChanged(nameof(DayNumber)); } } }
         int dayNumber;
+
+        public ObservableCollection<CalendarEvent> events
+        {
+            get { return (ObservableCollection<CalendarEvent>)GetValue(ItemsProperty); }
+            set { SetValue(ItemsProperty, value); }
+        }
+
+        public static readonly DependencyProperty ItemsProperty =
+        DependencyProperty.Register("events", typeof(ObservableCollection<CalendarEvent>), typeof(customCalendarDayControl), new PropertyMetadata(null));
+
+        //public ObservableCollection<CalendarEvent> events;
         public customCalendarDayControl()
         {
             InitializeComponent();
@@ -38,12 +50,21 @@ namespace calendar
         {
             status = _status;
             DayNumber = _dayNumber;
+            events = new ObservableCollection<CalendarEvent>();
+            //DayNumberLabel.Content = dayNumber;
             InitializeComponent();
             this.DataContext = this;
-            //DayNumberLabel.Content = dayNumber;
 
             TileBorder.BorderBrush = getBorderColor();
             TileBorder.Background = getBackColor();
+
+
+            events.Add(new CalendarEvent(1, "test", DateTime.Now));
+            events.Add(new CalendarEvent(2, "test", DateTime.Now));
+            events[1].Color = new SolidColorBrush(Color.FromRgb(212, 241, 80));
+            events.Add(new CalendarEvent(3, "test", DateTime.Now));
+            //eventListControl.ItemsSource = events;
+
         }
 
         private void TileBorder_MouseEnter(object sender, MouseEventArgs e)
@@ -86,6 +107,11 @@ namespace calendar
         protected virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        private void TileBorder_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }
