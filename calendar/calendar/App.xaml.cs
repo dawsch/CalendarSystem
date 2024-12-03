@@ -13,6 +13,14 @@ namespace calendar
         {
             
         }
+        public void ChangeTheme(Uri themeUri)
+        {
+            ResourceDictionary newTheme = new ResourceDictionary() { Source = themeUri };
+            // Usuń istniejące motywy
+            Resources.MergedDictionaries.Clear();
+            // Dodaj nowy motyw
+            Resources.MergedDictionaries.Add(newTheme);
+        }
     }
 
 }

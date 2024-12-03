@@ -50,3 +50,8 @@ C:\Users\tafit\Source\Repos\dawsch\CalendarSystem\calendar\calendar\obj\Debug\ne
 C:\Users\tafit\Source\Repos\dawsch\CalendarSystem\calendar\calendar\obj\Debug\net8.0-windows\calendar.genruntimeconfig.cache
 C:\Users\tafit\Source\Repos\dawsch\CalendarSystem\calendar\calendar\obj\Debug\net8.0-windows\ref\calendar.dll
 C:\projects\calendar\calendar\calendar\obj\Debug\net8.0-windows\calendar.sourcelink.json
+C:\projects\calendar\calendar\calendar\obj\Debug\net8.0-windows\DarkTheme.baml
+C:\projects\calendar\calendar\calendar\obj\Debug\net8.0-windows\LightTheme.baml
+C:\projects\calendar\calendar\calendar\obj\Debug\net8.0-windows\App.baml
+C:\projects\calendar\calendar\calendar\obj\Debug\net8.0-windows\dayEventList.g.cs
+C:\projects\calendar\calendar\calendar\obj\Debug\net8.0-windows\dayEventList.baml

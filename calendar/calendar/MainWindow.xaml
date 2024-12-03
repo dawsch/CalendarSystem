@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:calendar"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" Background="{DynamicResource PrimaryBrush}">
     <Viewbox HorizontalAlignment="Center">
-        <local:calendarControl VerticalAlignment="Top" Width="400" Height="300"/>
+        <StackPanel Orientation="Horizontal">
+            <local:calendarControl VerticalAlignment="Top" Width="400" Height="300"/>
+            <Rectangle Width="0.7" VerticalAlignment="Stretch" Margin="10 40" Fill="{DynamicResource SeperationLineBrush}"/>
+            <local:dayEventList/>
+        </StackPanel>
     </Viewbox>
 </Window>

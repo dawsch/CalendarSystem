@@ -57,6 +57,8 @@ namespace calendar
         calendarInfo calInfo;
         string actualMonth;
 
+        customCalendarDayControl selectedDay;
+
         public calendarControl()
         {
             InitializeComponent();
@@ -98,6 +100,9 @@ namespace calendar
             else
                 daysOfPrevMonth = DateTime.DaysInMonth(year - 1, 12);
             int index = 0;
+
+            int DaysInMonty_year_month = DateTime.DaysInMonth(year, month);
+
             for (int i = 0; i < 6; i++)
             {
 
@@ -110,9 +115,9 @@ namespace calendar
                         offset = daysOfPrevMonth;
                         tailStatus = TilStatus.disable;
                     }
-                    if (dayNumber > DateTime.DaysInMonth(year, month))
+                    if (dayNumber > DaysInMonty_year_month)
                     {
-                        offset = -DateTime.DaysInMonth(year, month);
+                        offset = -DaysInMonty_year_month;
                         tailStatus = TilStatus.disable;
                     }
                     if (dayNumber == DateTime.Today.Day && year == DateTime.Today.Year && month == DateTime.Today.Month)
@@ -129,7 +134,7 @@ namespace calendar
         List<customCalendarDayControl> createMonth(int year, int month)
         {
             List<customCalendarDayControl> tils = new List<customCalendarDayControl>();
-
+            Random rnd = new Random();
             int firstDayOfMonty = getDayOfWeek(new DateTime(year, month, 1));
             int dayNumber = -firstDayOfMonty + 1;
             int daysOfPrevMonth;
@@ -159,6 +164,13 @@ namespace calendar
                         tailStatus = TilStatus.today;
                     }
                     customCalendarDayControl day = new customCalendarDayControl(dayNumber + offset, tailStatus);
+                    int count = rnd.Next(0, 4);
+                    for (int k = 0; k <= count; k++)
+                    {
+                        day.events.Add(new CalendarEvent((uint)(i * j + j), "tytuł", DateTime.Now));
+                        day.events[day.events.Count - 1].Color = new SolidColorBrush(Color.FromRgb((byte)rnd.Next(0, 255), (byte)rnd.Next(0, 255), (byte)rnd.Next(0, 255)));
+                    }
+                    day.clikcked += OnDaySelected;
                     Grid.SetColumn(day, j);
                     Grid.SetRow(day, i);
                     tils.Add(day);
@@ -169,6 +181,14 @@ namespace calendar
             }
             return tils;
         }
+
+        void OnDaySelected(object sender, EventArgs e)
+        {
+            selectedDay?.disable();
+            selectedDay = (customCalendarDayControl)sender;
+            selectedDay.setAsSelected();
+        }
+
         static int getDayOfWeek(DateTime date)
         {
             int result = (int)date.DayOfWeek;

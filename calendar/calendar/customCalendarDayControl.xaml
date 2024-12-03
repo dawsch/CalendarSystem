@@ -6,17 +6,16 @@
              xmlns:local="clr-namespace:calendar"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
+    <Grid Mouse.MouseDown="TileBorder_MouseDown"
+          Mouse.MouseUp="TileBorder_MouseUp">
         <Border x:Name="TileBorder" 
-                BorderBrush="Red" 
-                Background="White"
-                BorderThickness="1" 
                 CornerRadius="3"
                 MouseEnter="TileBorder_MouseEnter"
                 MouseLeave="TileBorder_MouseLeave"
-                Mouse.MouseDown="TileBorder_MouseDown">
+                
+                Background="{DynamicResource PrimaryBrush}">
             <Grid>
-                <Label x:Name="DayNumberLabel" Content="{Binding DayNumber, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Label x:Name="DayNumberLabel" Content="{Binding DayNumber, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{Binding TextColor, UpdateSourceTrigger=PropertyChanged}"/>
                 <ItemsControl x:Name="eventsListControl" ItemsSource="{Binding events}">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>

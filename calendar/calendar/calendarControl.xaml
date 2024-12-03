@@ -11,6 +11,8 @@
             <Style x:Key="monthControlButton" TargetType="Button">
                 <Setter Property="Height" Value="20"/>
                 <Setter Property="Width" Value="50"/>
+                <Setter Property="Background" Value="{DynamicResource ButtonBackBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource PrimatyTextBrush}"/>
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -20,11 +22,11 @@
             <RowDefinition Height="30"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Label VerticalAlignment="Stretch" VerticalContentAlignment="Center" Content="{Binding YearLabel, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0"/>
+        <Label VerticalAlignment="Stretch" VerticalContentAlignment="Center" Content="{Binding YearLabel, UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Foreground="{DynamicResource PrimatyTextBrush}"/>
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Style="{StaticResource monthControlButton}" Content="prev" Click="prevClicked"/>
-            <Label HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="100" Content="{Binding MonthName, UpdateSourceTrigger=PropertyChanged}"/>
-            <Button Style="{StaticResource monthControlButton}" Content="next" Click="nextClicked"/>
+            <Button Template="{DynamicResource RoundButton}" Style="{StaticResource monthControlButton}" Content="prev" Click="prevClicked"/>
+            <Label HorizontalContentAlignment="Center" VerticalAlignment="Center" Width="100" Content="{Binding MonthName, UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource PrimatyTextBrush}"/>
+            <Button Template="{DynamicResource RoundButton}" Style="{StaticResource monthControlButton}" Content="next" Click="nextClicked"/>
         </StackPanel>
         <Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Center">
             <Grid.ColumnDefinitions>
@@ -36,13 +38,13 @@
                 <ColumnDefinition/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            <Label HorizontalAlignment="Center" Grid.Column="0" Content="Pon"/>
-            <Label HorizontalAlignment="Center" Grid.Column="1" Content="Wt"/>
-            <Label HorizontalAlignment="Center" Grid.Column="2" Content="Śr"/>
-            <Label HorizontalAlignment="Center" Grid.Column="3" Content="Czw"/>
-            <Label HorizontalAlignment="Center" Grid.Column="4" Content="Pt"/>
-            <Label HorizontalAlignment="Center" Grid.Column="5" Content="Sob"/>
-            <Label HorizontalAlignment="Center" Grid.Column="6" Content="Ndz"/>
+            <Label HorizontalAlignment="Center" Grid.Column="0" Content="Pon" Foreground="{DynamicResource PrimatyTextBrush}"/>
+            <Label HorizontalAlignment="Center" Grid.Column="1" Content="Wt" Foreground="{DynamicResource PrimatyTextBrush}"/>
+            <Label HorizontalAlignment="Center" Grid.Column="2" Content="Śr" Foreground="{DynamicResource PrimatyTextBrush}"/>
+            <Label HorizontalAlignment="Center" Grid.Column="3" Content="Czw" Foreground="{DynamicResource PrimatyTextBrush}"/>
+            <Label HorizontalAlignment="Center" Grid.Column="4" Content="Pt" Foreground="{DynamicResource PrimatyTextBrush}"/>
+            <Label HorizontalAlignment="Center" Grid.Column="5" Content="Sob" Foreground="{DynamicResource PrimatyTextBrush}"/>
+            <Label HorizontalAlignment="Center" Grid.Column="6" Content="Ndz" Foreground="{DynamicResource PrimatyTextBrush}"/>
         </Grid>
         <Grid x:Name="DaysContainer" Grid.Row="2">
             <Grid.ColumnDefinitions>
