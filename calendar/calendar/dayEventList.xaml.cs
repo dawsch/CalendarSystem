@@ -20,9 +20,16 @@ namespace calendar
     /// </summary>
     public partial class dayEventList : UserControl
     {
+        internal customCalendarDayControl dayControl;
         public dayEventList()
         {
             InitializeComponent();
+        }
+        internal void OnDaySelected(object sender, EventArgs e)
+        {
+            dayControl = (customCalendarDayControl)sender;
+            DataContext = dayControl;
+            
         }
     }
 }

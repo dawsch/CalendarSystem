@@ -21,6 +21,7 @@ namespace calendar
 {
     internal class calendarInfo : INotifyPropertyChanged
     {
+        
         static string[] names = { "styczeń", "luty", "marzec", "kwiecień", "maj", "czerwiec", "lipiec", "sierpień", "wrzesień", "październik", "listopad", "grudzień" };
         private string monthName = "brak";
         private int yearLabel = 0;
@@ -51,13 +52,15 @@ namespace calendar
     }
     public partial class calendarControl : UserControl
     {
-        DateTime actualDate;
+        DateTime actualDate { get; set; }
         List<customCalendarDayControl> dayControlList;
 
         calendarInfo calInfo;
         string actualMonth;
 
         customCalendarDayControl selectedDay;
+
+        internal EventHandler daySelectedEvent;
 
         public calendarControl()
         {
@@ -124,7 +127,7 @@ namespace calendar
                     {
                         tailStatus = TilStatus.today;
                     }
-                    tils[index].update(dayNumber + offset, tailStatus);
+                    tils[index].update(new DateTime(year, month, dayNumber + offset), tailStatus);
 
                     dayNumber++;
                     index++;
@@ -163,11 +166,12 @@ namespace calendar
                     {
                         tailStatus = TilStatus.today;
                     }
-                    customCalendarDayControl day = new customCalendarDayControl(dayNumber + offset, tailStatus);
+                    customCalendarDayControl day = new customCalendarDayControl(new DateTime(year, month, dayNumber + offset), tailStatus);
                     int count = rnd.Next(0, 4);
                     for (int k = 0; k <= count; k++)
                     {
                         day.events.Add(new CalendarEvent((uint)(i * j + j), "tytuł", DateTime.Now));
+                        day.events[day.events.Count - 1].Note = "testowa notatka, teścik, testowy";
                         day.events[day.events.Count - 1].Color = new SolidColorBrush(Color.FromRgb((byte)rnd.Next(0, 255), (byte)rnd.Next(0, 255), (byte)rnd.Next(0, 255)));
                     }
                     day.clikcked += OnDaySelected;
@@ -187,6 +191,8 @@ namespace calendar
             selectedDay?.disable();
             selectedDay = (customCalendarDayControl)sender;
             selectedDay.setAsSelected();
+
+            daySelectedEvent?.Invoke(selectedDay, e);
         }
 
         static int getDayOfWeek(DateTime date)

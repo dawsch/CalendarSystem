@@ -8,9 +8,9 @@
         Title="MainWindow" Height="450" Width="800" Background="{DynamicResource PrimaryBrush}">
     <Viewbox HorizontalAlignment="Center">
         <StackPanel Orientation="Horizontal">
-            <local:calendarControl VerticalAlignment="Top" Width="400" Height="300"/>
+            <local:calendarControl x:Name="calendarControl" VerticalAlignment="Top" Width="400" Height="300"/>
             <Rectangle Width="0.7" VerticalAlignment="Stretch" Margin="10 40" Fill="{DynamicResource SeperationLineBrush}"/>
-            <local:dayEventList/>
+            <local:dayEventList x:Name="dayInfoControl"/>
         </StackPanel>
     </Viewbox>
 </Window>

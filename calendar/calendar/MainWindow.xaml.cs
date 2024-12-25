@@ -19,6 +19,12 @@ namespace calendar
         public MainWindow()
         {
             InitializeComponent();
+
+            calendarControl.daySelectedEvent += dayInfoControl.OnDaySelected;
+        }
+        public static int toBeTested()
+        {
+            return 1;
         }
     }
 }

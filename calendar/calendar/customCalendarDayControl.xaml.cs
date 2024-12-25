@@ -30,6 +30,10 @@ namespace calendar
         internal EventHandler clikcked;
         private bool isToday = false;
         TilStatus status;
+
+        internal DateTime date;
+        public DateTime Date { get { return date; } set { date = value; OnPropertyChanged(nameof(Date)); } }
+
         public int DayNumber { get { return dayNumber; } set { if (value > 0 && value <= 31) { dayNumber = value; OnPropertyChanged(nameof(DayNumber)); } } }
         int dayNumber;
         Brush textColor;
@@ -50,12 +54,13 @@ namespace calendar
             this.DataContext = this;
             
         }
-        public customCalendarDayControl(int _dayNumber = 0, TilStatus _status = TilStatus.normal)
+        public customCalendarDayControl(DateTime _date, TilStatus _status = TilStatus.normal)
         {
+            date = _date;
             status = _status;
             if (status == TilStatus.today)
                 isToday = true;
-            DayNumber = _dayNumber;
+            DayNumber = date.Day;
             events = new ObservableCollection<CalendarEvent>();
             //DayNumberLabel.Content = dayNumber;
             InitializeComponent();
@@ -111,10 +116,11 @@ namespace calendar
             //}
             return Brushes.Transparent;
         }
-        public void update(int _dayNumber, TilStatus _status)
+        public void update(DateTime _date, TilStatus _status)
         {
+            date = _date;
             status = _status;
-            DayNumber = _dayNumber;
+            DayNumber = date.Day;
 
             TileBorder.Background = getBackColor();
             TileBorder.BorderBrush = getBorderColor();
