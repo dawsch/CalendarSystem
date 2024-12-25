@@ -5,58 +5,47 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:calendar"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" HorizontalAlignment="Stretch">
     <UserControl.Resources>
-        <ControlTemplate x:Key="SimpleExpanderButtonTemp" 
-             TargetType="{x:Type ToggleButton}">
+        <ControlTemplate x:Key="SimpleExpanderButtonTemp" TargetType="{x:Type ToggleButton}">
             <Border x:Name="ExpanderButtonBorder"
-            Background="{TemplateBinding Background}"
-            BorderBrush="{TemplateBinding BorderBrush}"
-            BorderThickness="{TemplateBinding BorderThickness}"
-            Padding="{TemplateBinding Padding}"
-            >
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    Padding="{TemplateBinding Padding}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <Rectangle Fill="Transparent"
-                       Grid.ColumnSpan="2"/>
-                    <Ellipse Name="Circle"
-                 Grid.Column="0"
-                 Stroke="{DynamicResource PrimatyTextBrush}"
-                 Width="15"
-                 Height="15"
-                 HorizontalAlignment="Center"
-                 VerticalAlignment="Center"
-                 />
+                    <Rectangle Fill="Transparent" Grid.ColumnSpan="2"/>
+                    <Ellipse Name="Circle" Grid.Column="0"
+                             Stroke="{DynamicResource PrimatyTextBrush}"
+                             Width="15" Height="15"
+                             HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <Path x:Name="Sign"
-              Grid.Column="0"
-              Data="M 0,3 H 6 M 3,0 V 6 Z"
-              Stroke="{DynamicResource PrimatyTextBrush}"
-              Width="6"
-              Height="6"
-              StrokeThickness="2"
-              HorizontalAlignment="Center"
-              VerticalAlignment="Center"
-              RenderTransformOrigin="0.5,0.5"
-              >
+                          Grid.Column="0"
+                          Data="M 0,3 H 6 M 3,0 V 6 Z"
+                          Stroke="{DynamicResource PrimatyTextBrush}"
+                          Width="6" Height="6"
+                          StrokeThickness="2"
+                          HorizontalAlignment="Center"
+                          VerticalAlignment="Center"
+                          RenderTransformOrigin="0.5,0.5">
                         <Path.RenderTransform>
                             <RotateTransform Angle="0"/>
                         </Path.RenderTransform>
                     </Path>
                     <ContentPresenter x:Name="HeaderContent"
-                          Grid.Column="1"
-                          Margin="4,0,0,0"
-                          ContentSource="Content"/>
+                                      Grid.Column="1"
+                                      Margin="4,0,0,0"
+                                      ContentSource="Content"/>
                 </Grid>
             </Border>
             <ControlTemplate.Triggers>
                 <!--Change the sign to minus when toggled-->
-                <Trigger Property="IsChecked"
-                 Value="True">
-                    <Setter Property="Data" 
-               TargetName="Sign" Value="M 0,3 H 6 Z"/>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Data" TargetName="Sign" Value="M 0,3 H 6 Z"/>
                 </Trigger>
 
                 <!-- MouseOver, Pressed behaviours-->
@@ -107,9 +96,17 @@
             </ControlTemplate.Triggers>
         </ControlTemplate>
     </UserControl.Resources>
-    <StackPanel Width="150">
-        <Label Content="{Binding Date, UpdateSourceTrigger=PropertyChanged }" ContentStringFormat="dd.MM.yyyy" Foreground="{DynamicResource PrimatyTextBrush}" HorizontalAlignment="Center"/>
-        <ItemsControl ItemsSource="{Binding events}">
+    <Grid HorizontalAlignment="Stretch">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Column="0" Grid.Row="0" Content="{Binding Date, UpdateSourceTrigger=PropertyChanged }" ContentStringFormat="dd.MM.yyyy" Foreground="{DynamicResource PrimatyTextBrush}" HorizontalAlignment="Left"/>
+        <ItemsControl Grid.Column="0" Grid.Row="1" ItemsSource="{Binding events}" x:Name="EventListControl">
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Grid HorizontalAlignment="Stretch">
@@ -119,17 +116,18 @@
                         </Grid.ColumnDefinitions>
 
                         <Ellipse Width="7" Height="7" Grid.Column="0" Fill="{Binding Color, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0 3 0 0"/>
-                        <Expander Template="{StaticResource SimpleExpanderTemp}" Header="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource PrimatyTextBrush}" Margin="10 0 0 0 ">
-                            <TextBlock TextWrapping="Wrap" Grid.Column="1" Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource PrimatyTextBrush}" Width="140"/>
+                        <Expander Template="{StaticResource SimpleExpanderTemp}" Header="{Binding Title, UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource PrimatyTextBrush}" Margin="10 0 0 0 " Expanded="Expander_Expanded" HorizontalAlignment="Stretch">
+                            <TextBlock TextWrapping="Wrap" Grid.Column="1" Text="{Binding Note, UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource PrimatyTextBrush}"/>
                         </Expander>
                     </Grid>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <StackPanel Width="Auto"/>
+                    <VirtualizingStackPanel />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
         </ItemsControl>
-    </StackPanel>
+        <Button Template="{DynamicResource RoundButton}" Style="{DynamicResource monthControlButton}" Grid.Column="0" Grid.Row="2" Content="Add" Margin="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Background="{DynamicResource ButtonBackBrush}"/>
+    </Grid>
 </UserControl>

@@ -9,6 +9,14 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="DarkTheme.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="monthControlButton" TargetType="Button">
+                <Setter Property="Height" Value="20"/>
+                <Setter Property="Width" Value="50"/>
+                <Setter Property="Background" Value="{DynamicResource ButtonBackBrush}"/>
+                <Setter Property="Foreground" Value="{DynamicResource PrimatyTextBrush}"/>
+            </Style>
+
             <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD"/>
             <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1"/>
             <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6"/>

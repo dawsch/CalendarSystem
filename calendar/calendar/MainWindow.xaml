@@ -6,11 +6,17 @@
         xmlns:local="clr-namespace:calendar"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" Background="{DynamicResource PrimaryBrush}">
-    <Viewbox HorizontalAlignment="Center">
-        <StackPanel Orientation="Horizontal">
-            <local:calendarControl x:Name="calendarControl" VerticalAlignment="Top" Width="400" Height="300"/>
-            <Rectangle Width="0.7" VerticalAlignment="Stretch" Margin="10 40" Fill="{DynamicResource SeperationLineBrush}"/>
-            <local:dayEventList x:Name="dayInfoControl"/>
-        </StackPanel>
-    </Viewbox>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Viewbox Grid.Column="0">
+            <local:calendarControl  x:Name="calendarControl" VerticalAlignment="Top" Width="400" Height="300"/>
+        </Viewbox>
+        <GridSplitter Grid.Column="1" Width="5" Margin="10 40" HorizontalAlignment="Stretch" ResizeBehavior="PreviousAndNext"/>
+        <!--<Rectangle Grid.Column="1" Width="0.7" VerticalAlignment="Stretch" Margin="10 40" Fill="{DynamicResource SeperationLineBrush}"/>-->
+        <local:dayEventList Grid.Column="2" x:Name="dayInfoControl" HorizontalAlignment="Stretch"/>
+    </Grid>
 </Window>

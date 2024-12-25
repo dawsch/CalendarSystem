@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\projects\calendar\calendar\calendar\obj\Debug\net8.0-windows\
+C:\Users\tafit\Source\Repos\dawsch\CalendarSystem\calendar\calendar\obj\Debug\net8.0-windows\
 calendar
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
-C:\projects\calendar\calendar\calendar\App.xaml
+C:\Users\tafit\Source\Repos\dawsch\CalendarSystem\calendar\calendar\App.xaml
 62032876568
 
 9-1305773591
-198-1431420039
+198-688555687
 calendarControl.xaml;customCalendarDayControl.xaml;DarkTheme.xaml;dayEventList.xaml;LightTheme.xaml;MainWindow.xaml;
 
 False
